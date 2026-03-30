@@ -13,7 +13,7 @@ const CONFIG = {
   },
   discord: {
     clientId: "1488088246784098464",
-    redirectUri: "http://localhost:5173",
+    redirectUri: "https://dopamine-site.vercel.app",
     guildId: "1483000167119585432",
     adminIds: ["1463135627854745677", "423847758642937856", "605718663395409920"],
   },
