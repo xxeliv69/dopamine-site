@@ -755,14 +755,15 @@ export default function App() {
         const av=du.avatar?`https://cdn.discordapp.com/avatars/${du.id}/${du.avatar}.png?size=128`:null;
         const ud={id:du.id,nickname:du.global_name||du.username,discordName:du.username,avatar:av,joinedAt:new Date().toISOString(),gamesPlayed:0};
         await initFB();
-
-        try {
-          const existing = members.find(m => m.id === du.id);
-          if (existing?.nickname) ud.nickname = existing.nickname;
-        } catch {}
-        await fbSet("members",du.id,ud);
-        setUser(ud);
-        localStorage.setItem("dz_user",JSON.stringify(ud));
+    
+    const allMembers = await fbAll("members"); 
+    const dbUser = allMembers.find(m => m.id === du.id);
+    if (dbUser && dbUser.nickname) {
+      ud.nickname = dbUser.nickname;
+    }
+    await fbSet("members", du.id, ud);
+    setUser(ud);
+    localStorage.setItem("dz_user", JSON.stringify(ud));
         await loadData();
       }catch(e){console.error(e);setError("로그인 오류: "+e.message);}
     })();
