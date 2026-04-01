@@ -238,7 +238,7 @@ function HomePage({ parties, members, setPage }) {
 
   function countGames(since) {
     const c={};
-    parties.filter(p=>new Date(p.date)>=since && p.status!=="ended").forEach(p=>{c[p.game]=(c[p.game]||0)+1;});
+    parties.filter(p=>new Date(p.date)>=since).forEach(p=>{c[p.game]=(c[p.game]||0)+1;});
     return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([n,ct],i)=>({rank:i+1,name:n,count:ct}));
   }
   function countMembers(since) {
